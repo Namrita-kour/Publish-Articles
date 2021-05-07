@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
-from .views import homepage, ArticleDetailView, AddPostView
+from .views import homepage, ArticleDetailView, AddPostView, UpdatePostView, DeletePostView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('home/', homepage.as_view(), name="Post_list"),
     path('article/<int:pk>', ArticleDetailView.as_view(), name="article_detail"),
     path('Write/', AddPostView.as_view(), name="add_post"),
+    path('article/edit/<int:pk>', UpdatePostView.as_view(), name="update_post"),
+    path('article/<int:pk>/delete', DeletePostView.as_view(), name="delete_post"),
 ]

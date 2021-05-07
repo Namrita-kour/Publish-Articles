@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, PostForms, EditForms
 from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
 
 from django.contrib.auth.decorators import login_required
 from .models import Post
@@ -60,5 +61,18 @@ class ArticleDetailView(DetailView):
 
 class AddPostView(CreateView):
     model = Post
+    form_class = PostForms
     template_name = "Accounts/add_post.html"
-    fields = '__all__'
+    #fields = '__all__'
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    form_class = EditForms
+    template_name = "Accounts/update_post.html"
+
+
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = "Accounts/delete_post.html"
+    success_url = reverse_lazy('Post_list')
