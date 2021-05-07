@@ -48,10 +48,6 @@ def logoutUser(request):
 
 
 # @login_required(login_url='login')
-# def homePage(request):
-#     context = {}
-#     return render(request, 'Accounts/home.html', context)
-
 class homepage(ListView):
     model = Post
     template_name = 'Accounts/Post_list.html'
