@@ -16,11 +16,13 @@ Including another URLconf
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
+from .views import homepage, ArticleDetailView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('register/', views.registerPage, name="register"),
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),
-    path('home/', views.homePage, name="home"),
+    path('home/', homepage.as_view(), name="Post_list"),
+    path('article/<int:pk>', ArticleDetailView.as_view(), name="article_detail"),
 ]

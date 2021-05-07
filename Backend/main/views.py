@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
-
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.decorators import login_required
+from .models import Post
 
 
 def registerPage(request):
@@ -34,7 +35,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return render(request, 'Accounts/home.html', context)
+            return redirect('Post_list')
         else:
             messages.info(request, 'Username OR password is incorrect')
 
@@ -46,7 +47,16 @@ def logoutUser(request):
     return redirect('login')
 
 
-@login_required(login_url='login')
-def homePage(request):
-    context = {}
-    return render(request, 'Accounts/home.html', context)
+# @login_required(login_url='login')
+# def homePage(request):
+#     context = {}
+#     return render(request, 'Accounts/home.html', context)
+
+class homepage(ListView):
+    model = Post
+    template_name = 'Accounts/Post_list.html'
+
+
+class ArticleDetailView(DetailView):
+    model = Post
+    template_name = "Accounts/article_detail.html"
