@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
-from .views import homepage, ArticleDetailView
+from .views import homepage, ArticleDetailView, AddPostView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
@@ -25,4 +25,5 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="logout"),
     path('home/', homepage.as_view(), name="Post_list"),
     path('article/<int:pk>', ArticleDetailView.as_view(), name="article_detail"),
+    path('Write/', AddPostView.as_view(), name="add_post"),
 ]

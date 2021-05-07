@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.decorators import login_required
@@ -56,3 +56,9 @@ class homepage(ListView):
 class ArticleDetailView(DetailView):
     model = Post
     template_name = "Accounts/article_detail.html"
+
+
+class AddPostView(CreateView):
+    model = Post
+    template_name = "Accounts/add_post.html"
+    fields = '__all__'
