@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from .models import Post, Category
 
 
 def registerPage(request):
@@ -52,6 +52,13 @@ def logoutUser(request):
 class homepage(ListView):
     model = Post
     template_name = 'Accounts/Post_list.html'
+    ordering = ['-post_date']
+
+
+class YourArticles(ListView):
+    model = Post
+    template_name = 'Accounts/your_article.html'
+    ordering = ['-post_date']
 
 
 class ArticleDetailView(DetailView):
@@ -64,6 +71,13 @@ class AddPostView(CreateView):
     form_class = PostForms
     template_name = "Accounts/add_post.html"
     #fields = '__all__'
+
+
+class AddCategoryView(CreateView):
+    model = Category
+    #form_class = PostForms
+    template_name = "Accounts/add_category.html"
+    fields = '__all__'
 
 
 class UpdatePostView(UpdateView):
